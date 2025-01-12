@@ -152,10 +152,10 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-svh w-full">
+    <div className="flex flex-col h-fit w-full">
       {/* Sticky nav */}
       <StickyNav />
-      <div className="w-full h-full flex-1 flex flex-col items-center justify-center text-lg">
+      <div className="w-full h-full pt-[180px] flex flex-col items-center justify-center text-lg">
         <div className="w-full max-w-[1080px] pt-10 max-md:pt-0 px-10 relative">
           <p className="pb-4 text-sm Cascadia text-dark-color/70">quote:</p>
           <h1 className="font-bold text-4xl max-md:text-2xl tracking-tight">

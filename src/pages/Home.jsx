@@ -1,23 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { json, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
-  LuBookmark,
   LuCheck,
-  LuCheckCircle,
   LuChevronDown,
   LuCopy,
   LuGlasses,
-  LuLanguages,
-  LuVolume2,
 } from "react-icons/lu";
 import { HiSparkles } from "react-icons/hi2";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { ConfigProvider, Dropdown, Space } from "antd";
+import { ConfigProvider, Dropdown } from "antd";
 import { Tooltip } from "antd";
 import "ldrs/squircle";
 import StickyNav from "../components/StickyNav";
-import { IoCheckmarkCircle } from "react-icons/io5";
 
 function Home() {
   const [result, setResult] = useState("");
@@ -40,7 +34,7 @@ function Home() {
   const handleNewQuote = () => {
     const options = {
       method: "GET",
-      url: import.meta.env.VITE_API_UR,
+      url: import.meta.env.VITE_API_URL,
       params: {
         language_code: "en",
       },
@@ -52,10 +46,10 @@ function Home() {
 
     const getQuote = async () => {
       setAnimateFetch(true);
-      console.log("clicked");
+      // console.log("clicked");
       try {
         const response = await axios.request(options);
-        console.log(response.data);
+        // console.log(response.data);
         setResult(response.data);
         localStorage.setItem("quoteCache", JSON.stringify(response.data));
         setAnimateFetch(false);
@@ -132,7 +126,7 @@ function Home() {
           onClick={copyAll}
           className="text-sm font-medium tracking-tight"
         >
-          Copy The Whole Thing
+          Copy Everything
         </button>
       ),
     },
@@ -152,7 +146,7 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col h-fit w-full">
+    <div className="flex flex-col h-fit w-full bg-[#cdd3b7]">
       {/* Sticky nav */}
       <StickyNav />
       <div className="w-full h-full pt-[80px] flex flex-col items-center justify-center text-lg">
@@ -167,7 +161,7 @@ function Home() {
           {animateShowMore && (
             <div className="py-4 ">
               <svg
-                class="container"
+                className="container"
                 x="0px"
                 y="0px"
                 viewBox="0 0 20 20"
@@ -176,16 +170,16 @@ function Home() {
                 preserveAspectRatio="xMidYMid meet"
               >
                 <path
-                  class="track"
+                  className="track"
                   fill="none"
-                  stroke-width="5"
+                  strokeWidth="5"
                   pathLength="100"
                   d="M0.37 18.5 C0.37 5.772 5.772 0.37 18.5 0.37 S36.63 5.772 36.63 18.5 S31.228 36.63 18.5 36.63 S0.37 31.228 0.37 18.5"
                 ></path>
                 <path
-                  class="car"
+                  className="car"
                   fill="none"
-                  stroke-width="5"
+                  strokeWidth="5"
                   pathLength="100"
                   d="M0.37 18.5 C0.37 5.772 5.772 0.37 18.5 0.37 S36.63 5.772 36.63 18.5 S31.228 36.63 18.5 36.63 S0.37 31.228 0.37 18.5"
                 ></path>
@@ -201,9 +195,9 @@ function Home() {
                 : "No description"}
             </p>
           )}
-          <div className="flex items-center justify-end gap-2 py-4 sticky bottom-0 bg-white mt-4">
+          <div className="flex items-center justify-end gap-2 py-4 sticky bottom-0 bg-[#cdd3b7] mt-4">
             {/* blender */}
-            <div className="absolute -top-3 left-0 w-full h-3 bg-gradient-to-b from-transparent to-white"></div>
+            <div className="absolute -top-3 left-0 w-full h-3 bg-gradient-to-b from-transparent to-[#cdd3b7]"></div>
             <ConfigProvider
               theme={{
                 token: {
@@ -220,7 +214,7 @@ function Home() {
                 trigger={["click"]}
                 placement="bottomRight"
               >
-                <div className="text-dark-color/50 hover:text-dark-color text-xl flex items-center justify-center gap-[1px] cursor-pointer ring-1 ring-stone-200 h-[37px] rounded-lg pr-1 pl-2">
+                <div className="text-dark-color/70 hover:text-dark-color bg-white/50 hover:bg-white/80 text-xl flex items-center justify-center gap-[1px] cursor-pointer h-[37px] rounded-lg pr-1 pl-2">
                   {coppied ? <LuCheck /> : <LuCopy />}
                   <span>
                     <LuChevronDown className="text-sm" />
@@ -235,28 +229,29 @@ function Home() {
             >
               <button
                 onClick={handleShowMore}
-                className={`text-xl h-[37px] aspect-square cursor-pointer flex items-center justify-center rounded-lg ring-1 ring-stone-200
+                className={`text-xl h-[37px] px-3  cursor-pointer flex items-center justify-center gap-2 rounded-lg
                 ${
                   showMore
-                    ? "bg-stone-200/80 text-dark-color"
-                    : "bg-transparent hover:bg-stone-200/80 text-dark-color/50 hover:text-dark-color "
+                    ? "bg-white/80 text-dark-color"
+                    : "bg-white/50 hover:bg-white/80 text-dark-color/70 hover:text-dark-color "
                 }
               `}
               >
                 <LuGlasses />
+                {/* <p className="text-sm font-medium max-sm:hidden">Description</p> */}
               </button>
             </Tooltip>
             <button
               disabled={animateFetch}
               onClick={handleNewQuote}
-              className={`bg-dark-color text-light-color text-xl flex items-center select-none gap-1 transition-all h-[37px] pl-3 pr-4 rounded-lg font-medium group 
+              className={`bg-[#3f4d46] text-light-color text-xl flex items-center select-none gap-1 transition-all h-[37px] pl-3 pr-4 rounded-lg font-medium group 
                 ${animateFetch ? " opacity-85 cursor-not-allowed" : ""}    
             `}
             >
               {animateFetch ? (
                 <div className="flex items-center gap-3">
                   <svg
-                    class="container2"
+                    className="container2"
                     x="0px"
                     y="0px"
                     viewBox="0 0 20 20"
@@ -265,28 +260,28 @@ function Home() {
                     preserveAspectRatio="xMidYMid meet"
                   >
                     <path
-                      class="track"
+                      className="track"
                       fill="none"
-                      stroke-width="5"
+                      strokeWidth="5"
                       pathLength="100"
                       d="M0.37 18.5 C0.37 5.772 5.772 0.37 18.5 0.37 S36.63 5.772 36.63 18.5 S31.228 36.63 18.5 36.63 S0.37 31.228 0.37 18.5"
                     ></path>
                     <path
-                      class="car"
+                      className="car"
                       fill="none"
-                      stroke-width="5"
+                      strokeWidth="5"
                       pathLength="100"
                       d="M0.37 18.5 C0.37 5.772 5.772 0.37 18.5 0.37 S36.63 5.772 36.63 18.5 S31.228 36.63 18.5 36.63 S0.37 31.228 0.37 18.5"
                     ></path>
                   </svg>
                   <span className="text-sm font-semibold pl-1">
-                    Generating..
+                    Fetching..
                   </span>
                 </div>
               ) : (
                 <>
                   <HiSparkles className="group-hover:rotate-45 transition duration-200" />
-                  <span className="text-sm font-semibold ">Generate</span>
+                  <span className="text-sm font-semibold ">Get New Quote</span>
                 </>
               )}
             </button>

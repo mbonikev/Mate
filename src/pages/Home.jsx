@@ -40,13 +40,13 @@ function Home() {
   const handleNewQuote = () => {
     const options = {
       method: "GET",
-      url: "https://quotes15.p.rapidapi.com/quotes/random/",
+      url: import.meta.env.VITE_API_UR,
       params: {
         language_code: "en",
       },
       headers: {
-        "x-rapidapi-key": "60f4cd0945msh79435640a97e714p13ec56jsnf80bbe924f6c",
-        "x-rapidapi-host": "quotes15.p.rapidapi.com",
+        "x-rapidapi-key": import.meta.env.VITE_RAPIDAPI_KEY,
+        "x-rapidapi-host": import.meta.env.VITE_RAPIDAPI_HOST,
       },
     };
 
